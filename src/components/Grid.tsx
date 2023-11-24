@@ -1,18 +1,9 @@
 import { Field } from "./Field";
 import { FieldType } from "../definitions";
 
-import styled from "styled-components";
 import { getFieldsWithFiller } from "../utils";
 import { DropArea } from "./GridItem";
-
-const Container = styled.div`
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: yellow;
-  row-gap: 30px;
-`;
+import { DummyDropArea } from "./DummyDropArea";
 
 export const Grid = ({
   parentId,
@@ -23,7 +14,7 @@ export const Grid = ({
 }) => {
   const fieldsWithFiller = getFieldsWithFiller(data);
   return (
-    <Container>
+    <DummyDropArea>
       {fieldsWithFiller.map((item, i) => {
         return (
           <DropArea key={item.id} item={item} parentId={parentId}>
@@ -38,6 +29,6 @@ export const Grid = ({
           </DropArea>
         );
       })}
-    </Container>
+    </DummyDropArea>
   );
 };
