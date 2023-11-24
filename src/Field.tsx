@@ -45,7 +45,6 @@ export const Field = ({
       $height={field.height}
       $dragging={isDragging}
       ref={ref}
-      data-handler-id={false}
     >
       <div>{field.name}</div>
       {field.items && <Grid data={field.items} parentId={field.id} />}
