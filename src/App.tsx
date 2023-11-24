@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import "./App.css";
-import { Toolbox } from "./Toolbox";
-import { Grid } from "./Grid";
-import { useFieldsStore } from "./store";
+import { Toolbox } from "./components/Toolbox";
+import { Grid } from "./components/Grid";
+import { useFieldsStore } from "./store/store";
 
 const Container = styled.div`
   width: 100%;

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { fields } from "./data";
-import { FieldType } from "./types";
+import { FieldType } from "../definitions";
 
 interface FieldState {
   fields: Array<FieldType>;

@@ -1,8 +1,8 @@
 import { Field } from "./Field";
-import { FieldType } from "./types";
+import { FieldType } from "../definitions";
 
 import styled from "styled-components";
-import { getFieldsWithFiller } from "./utils";
+import { getFieldsWithFiller } from "../utils";
 import { DropArea } from "./GridItem";
 
 const Container = styled.div`

@@ -1,4 +1,4 @@
-import { FieldType } from "./types";
+import { FieldType } from "../definitions";
 
 export const ItemTypes = {
   CARD: "card",

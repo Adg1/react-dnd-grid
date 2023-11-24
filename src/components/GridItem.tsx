@@ -1,8 +1,8 @@
 import { useDrop } from "react-dnd";
-import { useFieldsStore } from "./store";
-import { DragItem, FieldOrFiller } from "./types";
+import { useFieldsStore } from "../store/store";
+import { DragItem, FieldOrFiller } from "../definitions";
 import { Identifier } from "dnd-core";
-import { ItemTypes } from "./data";
+import { ItemTypes } from "../store/data";
 import styled from "styled-components";
 
 const SGridItem = styled.div<{

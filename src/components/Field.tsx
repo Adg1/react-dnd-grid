@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { FieldType } from "./types";
+import { FieldType } from "../definitions";
 import { Grid } from "./Grid";
 import { useDrag } from "react-dnd";
-import { ItemTypes } from "./data";
+import { ItemTypes } from "../store/data";
 import React from "react";
 
 const FieldContainer = styled.div<{

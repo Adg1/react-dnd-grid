@@ -1,4 +1,4 @@
-import { FieldType, FillerFields } from "./types";
+import { FieldType, FillerFields } from "./definitions";
 
 export const getFieldsWithFiller = (fields: Array<FieldType>): FillerFields => {
   const fieldsWithFiller: FillerFields = [];
