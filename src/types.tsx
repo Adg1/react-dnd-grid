@@ -1,7 +1,5 @@
-import { XYCoord } from "react-dnd";
-
 export interface FieldType {
-  id: number;
+  id: string;
   name: string;
   description: string;
   width: number;
@@ -10,13 +8,7 @@ export interface FieldType {
 }
 
 export interface DragItem {
-  index: number;
-  id: number;
+  id: string;
+  width: number;
   type: string;
-  hoverProps?: {
-    lastTargetId: number;
-    lastClientOffset: XYCoord;
-    lastDirection?: number;
-    lastTime?: number;
-  };
 }

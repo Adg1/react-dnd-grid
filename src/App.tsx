@@ -28,7 +28,7 @@ function App() {
   return (
     <Container>
       <Left>
-        <Grid data={fields} parentId={-1} />
+        <Grid data={fields} parentId={"-1"} />
       </Left>
       <Right>
         <Toolbox />

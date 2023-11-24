@@ -5,25 +5,24 @@ import { FieldType } from "./types";
 interface FieldState {
   fields: Array<FieldType>;
   moveField: (
-    sourceId: number,
-    targetParentId: number,
-    targetId: number,
+    sourceId: string,
+    targetParentId: string,
+    targetId: string,
     after: boolean
   ) => void;
-  moveFieldToParent: (sourceId: number, targetParentId: number) => void;
-  getParentId: (id: number) => number;
+  moveFieldToParent: (sourceId: string, targetParentId: string) => void;
+  getParentId: (id: string) => string;
 }
 
 export const useFieldsStore = create<FieldState>((set, get) => ({
   fields: fields,
   moveField: (
-    sourceId: number,
-    targetParentId: number,
-    targetId: number,
+    sourceId: string,
+    targetParentId: string,
+    targetId: string,
     after: boolean
   ) => {
     set((state) => {
-      console.log("moveField", sourceId, targetParentId, targetId, after);
       const sourceField = findField(state.fields, sourceId);
       if (!sourceField) return state;
       const newFields = removeField(state.fields, sourceId);
@@ -38,27 +37,26 @@ export const useFieldsStore = create<FieldState>((set, get) => ({
       };
     });
   },
-  moveFieldToParent: (sourceId: number, targetParentId: number) => {
+  moveFieldToParent: (sourceId: string, targetParentId: string) => {
     set((state) => {
-      console.log("moveFieldToParent", sourceId, targetParentId);
       const sourceField = findField(state.fields, sourceId);
       if (!sourceField) return state;
       const newFields = removeField(state.fields, sourceId);
       return {
-        fields: addField(newFields, targetParentId, sourceField, -1, true),
+        fields: addField(newFields, targetParentId, sourceField, "-1", true),
       };
     });
   },
-  getParentId: (id: number) => {
+  getParentId: (id: string) => {
     const { fields } = get();
     const field = findParentField(fields, id);
-    if (!field) return -1;
+    if (!field) return "-1";
     return field.id;
   },
 }));
 
 //find field by id(recursively)
-const findField = (fields: Array<FieldType>, id: number): FieldType | null => {
+const findField = (fields: Array<FieldType>, id: string): FieldType | null => {
   for (let i = 0; i < fields.length; i++) {
     if (fields[i].id === id) {
       return fields[i];
@@ -72,7 +70,7 @@ const findField = (fields: Array<FieldType>, id: number): FieldType | null => {
 };
 
 // remove and return field from fields(recursively)
-const removeField = (fields: Array<FieldType>, id: number) => {
+const removeField = (fields: Array<FieldType>, id: string) => {
   const newFields = fields.filter((f) => {
     if (f.id === id) {
       return false;
@@ -89,15 +87,15 @@ const removeField = (fields: Array<FieldType>, id: number) => {
 
 const addField = (
   fields: Array<FieldType>,
-  parentId: number,
+  parentId: string,
   field: FieldType,
-  targetId: number,
+  targetId: string,
   after: boolean
 ) => {
-  if (parentId === -1) {
+  if (parentId === "-1") {
     fields = [
       {
-        id: -1,
+        id: "-1",
         items: fields,
       },
     ] as Array<FieldType>;
@@ -105,7 +103,7 @@ const addField = (
 
   const newFields = fields.map((f) => {
     if (f.id === parentId) {
-      if (f.items && targetId !== -1) {
+      if (f.items && targetId !== "-1") {
         const next = after ? 1 : 0;
         const targetIndex = f.items.findIndex((f) => f.id === targetId);
         f.items.splice(targetIndex + next, 0, field);
@@ -118,7 +116,7 @@ const addField = (
     }
     return f;
   });
-  if (newFields?.[0]?.id === -1) {
+  if (newFields?.[0]?.id === "-1") {
     return newFields[0].items!;
   }
   return newFields;
@@ -127,7 +125,7 @@ const addField = (
 // find parent field by id(recursively)
 const findParentField = (
   fields: Array<FieldType>,
-  id: number
+  id: string
 ): FieldType | null => {
   for (let i = 0; i < fields.length; i++) {
     if (fields[i].items) {
