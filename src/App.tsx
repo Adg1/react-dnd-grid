@@ -3,6 +3,7 @@ import "./App.css";
 import { Toolbox } from "./components/Toolbox";
 import { Grid } from "./components/Grid";
 import { useFieldsStore } from "./store/store";
+import { DUMMY_ROOT_ID } from "./definitions/BaseTree";
 
 const Container = styled.div`
   width: 100%;
@@ -28,7 +29,7 @@ function App() {
   return (
     <Container>
       <Left>
-        <Grid data={fields} parentId={"-1"} />
+        <Grid data={fields} parentId={DUMMY_ROOT_ID} />
       </Left>
       <Right>
         <Toolbox />

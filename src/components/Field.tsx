@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FieldType } from "../definitions";
+import { DragItem, DropAction, FieldType } from "../definitions";
 import { Grid } from "./Grid";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../store/data";
@@ -15,6 +15,17 @@ const FieldContainer = styled.div<{
   border-color: ${(props) => (props.$dragging ? "pink" : "black")};
   background-color: cyan;
   color: black;
+  position: relative;
+  opacity: ${(props) => (props.$dragging ? 0.5 : 1)};
+`;
+
+const Cover = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 4px);
+  z-index: 1;
 `;
 
 export const Field = ({
@@ -27,10 +38,16 @@ export const Field = ({
 }) => {
   const ref = React.useRef<HTMLDivElement>(null);
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag<
+    DragItem,
+    null,
+    {
+      isDragging: boolean;
+    }
+  >({
     type: ItemTypes.CARD,
     item: () => {
-      return { id: field.id, index, width: field.width };
+      return { id: field.id, index, width: field.width, type: DropAction.MOVE };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -48,6 +65,7 @@ export const Field = ({
     >
       <div>{field.name}</div>
       {field.items && <Grid data={field.items} parentId={field.id} />}
+      {isDragging && <Cover />}
     </FieldContainer>
   );
 };
